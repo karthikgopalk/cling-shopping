@@ -1,3 +1,4 @@
-h1, p {
+body {
   font-family: 'Open Sans Condensed';
+  padding: 20px 60px;
 }
