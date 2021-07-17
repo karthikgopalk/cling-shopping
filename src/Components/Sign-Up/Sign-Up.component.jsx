@@ -2,6 +2,8 @@ import React from 'react';
 import './Sign-Up.styles.scss';
 import FormInput from '../Form-Input/Form-Input.component';
 import CustomButton from '../Custom-Button/Custom-Button.component';
+import { auth, createUserProfileDocument } from '../../Firebase/Firebase.utils';
+
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -13,9 +15,32 @@ class SignUp extends React.Component {
       confirmPassword: ''
     };
   }
-  handleSubmit = async event =>{
+  handleSubmit = async event => {
     event.preventDefault();
     const { displayName, email, password, confirmPassword } = this.state;
+    if (password != confirmPassword) {
+      alert("passwords doesn't match");
+      return;
+    }
+    try {
+      const { user } = await auth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
+      await createUserProfileDocument(user, { displayName });
+      this.setState({
+        displayName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  handleChange = event => {
+    const {name,value} = event.target;
+    this.setState({[name]:value})
   }
   render() {
     const { displayName, email, password, confirmPassword } = this.state;
