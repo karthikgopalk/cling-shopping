@@ -33,4 +33,8 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+});
+
 export default Header;
