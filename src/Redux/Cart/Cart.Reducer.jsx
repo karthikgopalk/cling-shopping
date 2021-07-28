@@ -1,4 +1,5 @@
 import CartActionType from './Cart.types.jsx';
+import {addItemToCart} from './Cart.utils'
 const INITIAL_STATE ={
   hidden: true,
   cartItems: []
@@ -14,7 +15,7 @@ case CartActionType.TOGGLE_CART_HIDDEN:
   case CartActionType.ADD_ITEM:
       return {
         ...state,
-        cartItems: [...state.cartItems, action.payload]
+        cartItems: addItemToCart(state.cartItems,action.payload)
       };
 default:
   return state;
